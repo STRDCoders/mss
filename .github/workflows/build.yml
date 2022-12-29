@@ -7,7 +7,7 @@ on:
     types: [opened, synchronize, reopened]
 jobs:
   build:
-    name: Build and analyze
+    name: CD
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -20,6 +20,11 @@ jobs:
       - name: run Tests
         timeout-minutes: 10
         run: ./gradlew check jacocoTestReport
+      - name: Upload HTML report
+        uses: actions/upload-artifact@v2
+        with:
+          name: HTML Report
+          path: build/reports/tests/test
       - name: Cache SonarCloud packages
         uses: actions/cache@v1
         with:
