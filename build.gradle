@@ -47,8 +47,6 @@ task ktlint(type: JavaExec, group: "verification") {
 	args "src/**/*.kt"
 }
 
-
-
 test {
 	useJUnitPlatform()
 	jacoco {
@@ -73,3 +71,4 @@ task installLocalGitHook(type: Copy) {
 
 tasks.getByPath(":prepareKotlinBuildScriptModel").dependsOn installLocalGitHook
 build.dependsOn installLocalGitHook
+jacocoTestReport.dependsOn ktlint
