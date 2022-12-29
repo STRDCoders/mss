@@ -17,7 +17,12 @@ repositories {
 	mavenCentral()
 }
 
+configurations {
+	ktlint
+}
+
 dependencies {
+	ktlint('com.pinterest:ktlint:0.48.0')
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
@@ -34,6 +39,16 @@ tasks.withType(KotlinCompile) {
 	}
 }
 
+// Format Kotlin code using ktlint
+task ktlint(type: JavaExec, group: "verification") {
+	description = "Check Kotlin code style."
+	classpath = configurations.ktlint
+	main = "com.pinterest.ktlint.Main"
+	args "src/**/*.kt"
+}
+
+
+
 test {
 	useJUnitPlatform()
 	jacoco {
@@ -49,3 +64,12 @@ sonarqube {
 		property "sonar.host.url", "https://sonarcloud.io"
 	}
 }
+
+task installLocalGitHook(type: Copy) {
+	from new File(rootProject.rootDir, '.githooks/pre-commit')
+	into { new File(rootProject.rootDir, '.git/hooks')}
+	fileMode 0775
+}
+
+tasks.getByPath(":prepareKotlinBuildScriptModel").dependsOn installLocalGitHook
+build.dependsOn installLocalGitHook
