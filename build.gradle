@@ -6,6 +6,7 @@ plugins {
 	id 'org.jetbrains.kotlin.jvm' version '1.7.22'
 	id 'org.jetbrains.kotlin.plugin.spring' version '1.7.22'
 	id 'org.sonarqube' version '3.5.0.2730'
+	id 'com.google.cloud.tools.jib' version '3.3.1'
 	id 'jacoco'
 }
 
@@ -28,6 +29,10 @@ dependencies {
 	implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
 	implementation 'org.jetbrains.kotlin:kotlin-reflect'
 	implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
+
+	// Feign WebClient
+	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:4.0.0'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 }
@@ -67,6 +72,23 @@ task installLocalGitHook(type: Copy) {
 	from new File(rootProject.rootDir, '.githooks/pre-commit')
 	into { new File(rootProject.rootDir, '.git/hooks')}
 	fileMode 0775
+}
+
+jib {
+	from {
+		image = "adoptopenjdk/openjdk11:alpine"
+	}
+
+	to {
+		image = "media-storage-supervisor:latest"
+	}
+	container {
+		ports = ['1121']
+		environment = [
+				SPRING_OUTPUT_ANSI_ENABLED: 'ALWAYS'
+		]
+		creationTime = "USE_CURRENT_TIMESTAMP"
+	}
 }
 
 tasks.getByPath(":prepareKotlinBuildScriptModel").dependsOn installLocalGitHook
