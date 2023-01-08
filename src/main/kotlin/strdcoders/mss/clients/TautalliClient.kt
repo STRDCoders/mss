@@ -12,10 +12,12 @@ import strdcoders.mss.clients.dto.OrderDirectionEnum
     url = "\${mss.clients.tautalli.baseUrl}",
 )
 interface TautalliClient {
-    @GetMapping(params = ["cmd=get_library_media_info"]) // TODO not working
+    @GetMapping
     fun getMediaList(
         @RequestParam("section_id") sectionId: Number,
         @RequestParam("order_column") orderColumn: OrderColumnEnum,
         @RequestParam("order_dir") orderDirection: OrderDirectionEnum,
+        @RequestParam("apikey") apiKey: String,
+        @RequestParam("cmd") cmd: String,
     ): LibraryMediaInfo
 }
