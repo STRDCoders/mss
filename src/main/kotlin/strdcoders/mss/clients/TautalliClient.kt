@@ -3,21 +3,21 @@ package strdcoders.mss.clients
 import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
-import strdcoders.mss.clients.dto.LibraryMediaInfo
-import strdcoders.mss.clients.dto.OrderColumnEnum
 import strdcoders.mss.clients.dto.OrderDirectionEnum
+import strdcoders.mss.clients.dto.tautalli.TautalliLibraryContentDTO
+import strdcoders.mss.clients.dto.tautalli.TautalliLibraryDTO
+import strdcoders.mss.clients.dto.tautalli.TautalliResponseDTO
 
 @FeignClient(
     name = "tautalli",
-    url = "\${mss.clients.tautalli.baseUrl}",
 )
 interface TautalliClient {
-    @GetMapping
+    @GetMapping("?cmd=\${tautalli.api.getlibraryMediainfo}&order_column=last_played")
     fun getMediaList(
         @RequestParam("section_id") sectionId: Number,
-        @RequestParam("order_column") orderColumn: OrderColumnEnum,
         @RequestParam("order_dir") orderDirection: OrderDirectionEnum,
-        @RequestParam("apikey") apiKey: String,
-        @RequestParam("cmd") cmd: String,
-    ): LibraryMediaInfo
+    ): TautalliResponseDTO<TautalliLibraryContentDTO>
+
+    @GetMapping("?cmd=\${tautalli.api.getLibraries}")
+    fun getLibraries(): TautalliResponseDTO<List<TautalliLibraryDTO>>
 }

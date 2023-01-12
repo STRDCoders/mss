@@ -1,6 +1,6 @@
-package strdcoders.mss.clients.dto
+package strdcoders.mss.clients.dto.tautalli
 
-data class MediaInfo(
+data class MediaInfoDTO(
     val added_at: String,
     val audio_channels: String,
     val audio_codec: String,
@@ -26,11 +26,11 @@ data class MediaInfo(
     val year: String,
 )
 
-data class LibraryMediaInfo(
+data class TautalliLibraryContentDTO(
     val draw: Int,
     val recordsTotal: Int,
     val recordsFiltered: Int,
     val filtered_file_size: Long,
     val total_file_size: Long,
-    val data: List<MediaInfo>,
+    val data: List<MediaInfoDTO>,
 )

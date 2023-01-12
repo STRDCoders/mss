@@ -1,12 +1,18 @@
-mss:
-  clients:
-    tautalli:
-      baseUrl: "http://ip:8181/api/v2"
-
-feign:
-  client:
-    config:
-      default:
-        loggerLevel: full
-        defaultQueryParameters:
-          apiKey: key
+spring:
+  jackson:
+    mapper:
+      ACCEPT_CASE_INSENSITIVE_PROPERTIES: true
+  cloud:
+    openfeign:
+      client:
+        config:
+          default:
+            loggerLevel: full
+          tautalli:
+            url: http://ip:8181/api/v2
+            defaultQueryParameters:
+              apikey: api
+tautalli:
+  api:
+    getlibraryMediainfo: get_library_media_info
+    getLibraries: get_libraries
