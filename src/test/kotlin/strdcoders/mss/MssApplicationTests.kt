@@ -1,9 +1,9 @@
 package strdcoders.mss
 
 import org.junit.jupiter.api.Test
-import org.springframework.boot.test.context.SpringBootTest
+import strdcoders.mss.util.SpringBootTestcontainersMssTest
 
-@SpringBootTest
+@SpringBootTestcontainersMssTest
 class MssApplicationTests {
 
     @Test
