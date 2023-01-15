@@ -2,9 +2,10 @@ name: SonarCloud
 on:
   push:
     branches:
+      - master
+    tags-ignore:
       - '*'
   pull_request:
-    types: [opened, synchronize, reopened]
 jobs:
   build:
     name: CD
