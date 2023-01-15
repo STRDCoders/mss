@@ -1,0 +1,15 @@
+spring:
+  cloud:
+    openfeign:
+      client:
+        config:
+          default:
+            loggerLevel: full
+          tautalli:
+            url: http://ip:8181/api/v2
+            defaultQueryParameters:
+              apikey: api
+tautalli:
+  api:
+    getlibraryMediainfo: get_library_media_info
+    getLibraries: get_libraries
