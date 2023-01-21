@@ -1,4 +1,4 @@
-package strdcoders.mss.util
+package strdcoders.mss.utils
 
 import org.springframework.stereotype.Service
 import strdcoders.mss.repository.PartitionMonitorRepository

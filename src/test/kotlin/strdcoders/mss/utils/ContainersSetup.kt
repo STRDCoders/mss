@@ -1,9 +1,10 @@
-package strdcoders.mss.util
+package strdcoders.mss.utils
 
 import org.junit.jupiter.api.extension.BeforeAllCallback
 import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.api.extension.ExtensionContext
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.test.context.ActiveProfiles
 import org.testcontainers.containers.MockServerContainer
 import org.testcontainers.containers.MySQLContainer
 import org.testcontainers.utility.DockerImageName
@@ -57,4 +58,5 @@ class ContainersSetup {
 
 @SpringBootTest
 @ExtendWith(ContainersSetup.MockServer::class, ContainersSetup.MysqlServer::class)
+@ActiveProfiles(profiles = ["test"])
 annotation class SpringBootTestcontainersMssTest
