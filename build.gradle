@@ -70,7 +70,6 @@ test {
         reports.html.enabled = true
     }
 }
-
 sonarqube {
     properties {
         property "sonar.projectKey", "STRDCoders_mss"
