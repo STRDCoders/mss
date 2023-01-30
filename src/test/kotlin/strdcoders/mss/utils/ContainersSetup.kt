@@ -22,10 +22,6 @@ class ContainersSetup {
         override fun beforeAll(context: ExtensionContext?) {
             if (started.compareAndSet(false, true)) {
                 mockServer.start()
-                System.setProperty("lsd.logo-grab.api.brand.base", mockServer.endpoint)
-                System.setProperty("lsd.internal-gateway.base-url", mockServer.endpoint)
-                System.setProperty("lsd.site-content.base-url", mockServer.endpoint)
-                System.setProperty("lsd.risk-score.base-url", mockServer.endpoint)
             }
         }
     }
