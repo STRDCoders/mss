@@ -9,6 +9,8 @@ import jakarta.persistence.Table
 import jakarta.validation.constraints.NotBlank
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
+import strdcoders.mss.dto.PartitionMonitorDto
+import java.io.File
 
 @Repository
 interface PartitionMonitorRepository : JpaRepository<PartitionMonitor, String>
@@ -28,3 +30,5 @@ data class PartitionMonitor(
     @Column(name = "threshold_percentage", nullable = false)
     val thresholdPercentage: Short = 100,
 )
+
+fun PartitionMonitor.toDTO() = PartitionMonitorDto(File(file), thresholdPercentage)
