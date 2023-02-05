@@ -21,6 +21,7 @@ class StorageTriggerScheduler(
     fun storageSchedule() {
         log.info("Starting storage check schedule check")
         partitionMonitorService.getAllPartitions().forEach {
+            log.debug("Checking partition: ${it.file.name} with a threshold of: ${it.thresholdPercentage}")
             if (storageUtils.isFileAboveLimit(it.file, it.thresholdPercentage)) {
                 log.info("Partition '${it.file.name}' is above the limit: ${it.thresholdPercentage}% with free disk space of: ${it.file.usableSpace / StorageUtils.convertToGb}GB")
                 ruleFlowRunner.runRules(it)
