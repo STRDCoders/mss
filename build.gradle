@@ -33,9 +33,12 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation "mysql:mysql-connector-java"
     implementation "org.liquibase:liquibase-core"
+    implementation "org.hibernate.validator:hibernate-validator"
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
+
+    testImplementation 'org.instancio:instancio-junit:2.6.0'
 
     // Test Containers
     testImplementation 'org.testcontainers:testcontainers:1.17.6'
@@ -75,6 +78,7 @@ sonarqube {
         property "sonar.organization", "strdcoders"
         property "sonar.host.url", "https://sonarcloud.io"
         property "sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml"
+        property "sonar.exclusions", "src/main/kotlin/strdcoders/mss/config/**,src/main/kotlin/strdcoders/mss/utils/Constants.kt"
     }
 }
 
