@@ -11,7 +11,7 @@ import strdcoders.mss.dto.PartitionMonitorDto
 import strdcoders.mss.repository.PartitionMonitor
 import strdcoders.mss.repository.PartitionMonitorRepository
 import strdcoders.mss.repository.toDTO
-import strdcoders.mss.services.RuleFlowRunner
+import strdcoders.mss.services.RuleFlowRunnerImpl
 import strdcoders.mss.utils.DbUtils
 import strdcoders.mss.utils.MockitoUtils
 import strdcoders.mss.utils.SpringBootTestcontainersMssTest
@@ -23,7 +23,7 @@ import java.io.File
 class StorageTriggerSchedulerTest {
 
     @MockBean
-    private lateinit var ruleFlowRunner: RuleFlowRunner
+    private lateinit var ruleFlowRunnerImpl: RuleFlowRunnerImpl
 
     @MockBean
     private lateinit var storageUtils: StorageUtils
@@ -56,14 +56,14 @@ class StorageTriggerSchedulerTest {
             partitionMonitorDto.file,
             partitionMonitorDto.thresholdPercentage,
         )
-        verify(ruleFlowRunner, times(1)).runRules(partitionMonitorDto)
+        verify(ruleFlowRunnerImpl, times(1)).runRules(partitionMonitorDto)
     }
 
     @Test
     fun `when have no partitions, should do nothing`() {
         storageTriggerScheduler.storageSchedule()
         verify(storageUtils, never()).isFileAboveLimit(MockitoUtils.anyNonNull(), MockitoUtils.anyNonNull())
-        verify(ruleFlowRunner, never()).runRules(MockitoUtils.anyNonNull())
+        verify(ruleFlowRunnerImpl, never()).runRules(MockitoUtils.anyNonNull())
     }
 
     @Test
@@ -81,6 +81,6 @@ class StorageTriggerSchedulerTest {
             partitionMonitorDTO.file,
             partitionMonitorDTO.thresholdPercentage,
         )
-        verify(ruleFlowRunner, never()).runRules(MockitoUtils.anyNonNull())
+        verify(ruleFlowRunnerImpl, never()).runRules(MockitoUtils.anyNonNull())
     }
 }
